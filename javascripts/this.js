@@ -6,7 +6,7 @@
 // probably heard PJ talk about. He likes to talk about it.
 
 // This example will use students and student groups.
-// Instances of functions and calling of functions are already made
+// Object instances and calling of functions are already made
 // at the bottom of the page. You will be instructed on when to uncomment them
 // while reading the article.
 // Keep a browser open, test each method out as it is introduced, and see what
