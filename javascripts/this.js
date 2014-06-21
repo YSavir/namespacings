@@ -1,6 +1,6 @@
 // We've been using 'var self = this' a lot.
 // Why do we use it? What problem does it solve?
-// This... erm, article? Will explain the mysteries of 'this',
+// This... erm, article? Will explain some of the mysteries of 'this',
 // why we learned 'var self = this', and even delve into a
 // better approach to handle the problem: .bind(), which you've
 // probably heard PJ talk about. He likes to talk about it.
@@ -12,7 +12,7 @@
 // Keep a browser open, test each method out as it is introduced, and see what
 // happens in the console.
 
-// UNCOMMENT LINE 161 AND LOAD THE INDEX
+// UNCOMMENT LINE 162 AND LOAD THE INDEX
 
 var Student = function(name, age){
   // When we call 'new Student', we enter the context of the instance
@@ -32,7 +32,7 @@ var Student = function(name, age){
 
 // Lets create the StudentGroup:
 
-// UNCOMMENT LINE 162 AND LOAD THE INDEX
+// UNCOMMENT LINE 163 AND LOAD THE INDEX
 
 var StudentGroup = function(title){
   this.title = title;
@@ -55,7 +55,7 @@ StudentGroup.prototype.addStudent = function(student){
 // Let's also give student groups the ability to introduce each of
 // their student:
 
-// UNCOMMENT LINE 173 AND LOAD INDEX
+// UNCOMMENT LINE 174 AND LOAD INDEX
 
 StudentGroup.prototype.introduceStudents = function(){
   // Now we are in the context of whichever StudentGroup instance
@@ -68,7 +68,7 @@ StudentGroup.prototype.introduceStudents = function(){
     // Uh-oh, we entered a new function! Did that affect the context
     // assigned to 'this'? 
     console.log("'this' while inside the function introducing an individual student: ", this);
-    // Oh no! Student Group is gone! What will happen to our message now?
+    // Oh no! Student Group is gone from 'this'! What will happen to our message now?
     // Can we still use this.title to get the student group title?
     console.log("Meet " + student.name + ", a " + student.age + " year old member of " + this.title);
     // Looks like we can't. this.title returns undefined (just like my name when I pop a
@@ -80,21 +80,22 @@ StudentGroup.prototype.introduceStudents = function(){
   })
 }
 
-// COMMENT OUT LINE 173
-// UNCOMMENT LINE 174 AND LOAD INDEX
+// COMMENT OUT LINE 174
+// UNCOMMENT LINE 175 AND LOAD INDEX
 
 StudentGroup.prototype.checkHomework = function(){
-  // 'this' now refers to the student group again.
+  // We called a function of student group again, so 'this'
+  // once more refers to that student group.
   console.log("'this' when calling checkHomework: ", this);
   // In this function, we will iterate over the students again, checking if
   // they completed their homework. But this time we won't have broken code...
   var self = this;
   // There's our old buddy. But what is it doing?
-  // Since the value of 'this' changes, we're creating a new variable,
+  // Since the value of 'this' changes automatically, we're creating a new variable,
   // one that will not change (unless we tell it to). By setting it equal to
   // 'this', we're giving it the value of the current 'this', which will
   // stick with it as we go into deeper functions.
-  // Important note: 'self' is not special; we can use any word
+  // Note: 'self' is not special; we can use any word
   // instead of it. In fact, to demonstrate that, let's use another word too.
   // We will use 'flamethrower', courtesy of the random word generator
   // at wordgenerator.net.
@@ -120,11 +121,11 @@ StudentGroup.prototype.checkHomework = function(){
   })
 }
 
-// COMMENT OUT LINE 174
-// UNCOMMENT LINE 175 AND LOAD INDEX
+// COMMENT OUT LINE 175
+// UNCOMMENT LINE 176 AND LOAD INDEX
 
 StudentGroup.prototype.endOfWDI = function(){
-  // 'this' is the student group.
+  // 'this' is now the student group again.
   console.log("'this' when calling endOfWDI: ", this);
   // We won't be using 'var self = this' this time...
   this.students.forEach(function(student){
@@ -135,7 +136,7 @@ StudentGroup.prototype.endOfWDI = function(){
   // That's .bind(). See how it's added on after the closing } of
   // the function inside forEach?
   // Since it's outside the function, what's the value of 'this' when 
-  // it is used? (hint: look at the output of line 128).
+  // it is used? (hint: look at the output of line 129).
   // Using .bind() tells that function that it should execute in a context
   // other than it's default context. The value we pass to it (whatever is inside
   // the parenthesis of the .bind()) is the context to apply to it. So when we pass 'this'
@@ -143,8 +144,8 @@ StudentGroup.prototype.endOfWDI = function(){
 
   // We don't always have to use the current context, either.
 
-  // UNCOMMENT LINE 163
-  // REPLACE 'this' WITH 'string' IN LINE 132.
+  // UNCOMMENT LINE 164
+  // REPLACE 'this' WITH 'string' IN LINE 134.
 
   // What changed? What changes if you put 'lambda' there instead of 'string'?
   // Who's title is being used in each case?
@@ -198,10 +199,10 @@ $(function(){
 // We will set window.boo to equal "boo" and compare it with the other options
 // which we won't define by hand.
 
-// Uncomment lines 203 through 207 and check out the results.
+// Uncomment lines 204 through 208 and check out the results.
 
 // window.boo = "boo"
 
-// console.log("window.boo == boo is:8", window.boo == boo);
-// console.log("window.boo == this.boo is:8", window.boo == this.boo);
-// console.log("boo == this.boo is:8", boo == this.boo);
+// console.log("window.boo == boo is:", window.boo == boo);
+// console.log("window.boo == this.boo is:", window.boo == this.boo);
+// console.log("boo == this.boo is:", boo == this.boo);
